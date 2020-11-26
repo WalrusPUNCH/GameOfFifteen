@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.ControlCenter.Abstract\GameOfFifteen.ControlCenter.Abstract.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.ControlCenter.Impl\GameOfFifteen.ControlCenter.Impl.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.Game.Impl\GameOfFifteen.Game.Impl.csproj" />
+    </ItemGroup>
+
+</Project>

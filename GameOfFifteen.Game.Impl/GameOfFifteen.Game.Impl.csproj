@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.Game.Entities\GameOfFifteen.Game.Entities.csproj" />
+    </ItemGroup>
+
+</Project>
