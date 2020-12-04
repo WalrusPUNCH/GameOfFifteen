@@ -4,7 +4,7 @@ namespace GameOfFifteen.CommandCenter.Abstract
 {
     public interface ICommandManager
     {
-        void SetGame(IGame game);
+        IGame Game { set; }
         ICommand GetCommand(string[] keyWords);
     }
 }

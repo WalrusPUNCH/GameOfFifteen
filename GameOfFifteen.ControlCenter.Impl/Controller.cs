@@ -1,5 +1,6 @@
 ﻿using System;
 using GameOfFifteen.CommandCenter.Abstract;
+using GameOfFifteen.CommandCenter.Exceptions;
 using GameOfFifteen.ControlCenter.Abstract;
 using GameOfFifteen.Game.Abstract;
 using GameOfFifteen.Game.Entities;
@@ -32,25 +33,30 @@ namespace GameOfFifteen.ControlCenter.Impl
         public void ServeGame()
         {
             _console.ShowText(_gameMessageHolder.GetGeneralGameInformation());
-            
-            while (_keepGameActive)
+            string[] input;
+            do
             {
-                string[] input = _console.GetProcessedInput();
-                if (input.Length < 1 || string.IsNullOrWhiteSpace(input[0])) 
+                input = _console.GetProcessedInput();
+                if (input.Length < 1 || string.IsNullOrWhiteSpace(input[0]))
                     continue;
-                if (input[0] == "quit" || input[0] == "q")
-                {
-                    _keepGameActive = false;
-                }
-                else
+                try
                 {
                     _currentCommand = _commandManager.GetCommand(input);
-                    if (_currentCommand != null)
+                }
+                catch (Exception ex)
+                {
+                    if (ex is InvalidMapSizeException ||
+                        ex is InvalidLevelException ||
+                        ex is InvalidFrameTypeException ||
+                        ex is InvalidRandomActionsParameterException)
                     {
-                        _currentCommand.Execute();
+                        _console.ShowText(ex.Message);
                     }
                 }
+
+                _currentCommand?.Execute();
             }
+            while (input?[0] != "quit" && input?[0] != "q");
         }
         
         private void OnNewGameCreated(IGame game)
@@ -58,7 +64,7 @@ namespace GameOfFifteen.ControlCenter.Impl
             _currentGame = game;
             _currentGame.NotifyOnGameWon += OnCurrentGameWon;
             _currentGame.NotifyOnPlayfieldChange += OnPlayfieldChanged;
-            _commandManager.SetGame(game);
+            _commandManager.Game = game;
             _history.Clear();
            
         }

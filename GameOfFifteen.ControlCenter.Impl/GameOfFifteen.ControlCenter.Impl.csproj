@@ -7,6 +7,7 @@
     <ItemGroup>
       <ProjectReference Include="..\GameOfFifteen.CommandCenter.Abstract\GameOfFifteen.CommandCenter.Abstract.csproj" />
       <ProjectReference Include="..\GameOfFifteen.ControlCenter.Abstract\GameOfFifteen.ControlCenter.Abstract.csproj" />
+      <ProjectReference Include="..\GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj" />
       <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
     </ItemGroup>
 

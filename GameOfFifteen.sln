@@ -1,20 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen", "GameOfFifteen\GameOfFifteen.csproj", "{029D647F-804F-4310-9D82-434691B2294C}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen", "GameOfFifteen\GameOfFifteen.csproj", "{029D647F-804F-4310-9D82-434691B2294C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.Game.Entities", "GameOfFifteen.Game.Entities\GameOfFifteen.Game.Entities.csproj", "{9E8DF1F5-BA10-4690-81F2-E7E2D1FAF710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.Game.Entities", "GameOfFifteen.Game.Entities\GameOfFifteen.Game.Entities.csproj", "{9E8DF1F5-BA10-4690-81F2-E7E2D1FAF710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.Game.Impl", "GameOfFifteen.Game.Impl\GameOfFifteen.Game.Impl.csproj", "{C01A7ED0-5DA9-42E0-B548-C35AB17BE4BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.Game.Impl", "GameOfFifteen.Game.Impl\GameOfFifteen.Game.Impl.csproj", "{C01A7ED0-5DA9-42E0-B548-C35AB17BE4BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.Game.Abstract", "GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj", "{798328BA-1081-4C06-BFBB-A6259592A330}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.Game.Abstract", "GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj", "{798328BA-1081-4C06-BFBB-A6259592A330}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.ControlCenter.Impl", "GameOfFifteen.ControlCenter.Impl\GameOfFifteen.ControlCenter.Impl.csproj", "{729B8E46-701F-493B-8D43-9F09F3524323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.ControlCenter.Impl", "GameOfFifteen.ControlCenter.Impl\GameOfFifteen.ControlCenter.Impl.csproj", "{729B8E46-701F-493B-8D43-9F09F3524323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.ControlCenter.Abstract", "GameOfFifteen.ControlCenter.Abstract\GameOfFifteen.ControlCenter.Abstract.csproj", "{7C3506DA-D708-4B15-8910-EEEEC2CE7B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.ControlCenter.Abstract", "GameOfFifteen.ControlCenter.Abstract\GameOfFifteen.ControlCenter.Abstract.csproj", "{7C3506DA-D708-4B15-8910-EEEEC2CE7B7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.CommandCenter.Abstract", "GameOfFifteen.CommandCenter.Abstract\GameOfFifteen.CommandCenter.Abstract.csproj", "{C40A147B-027B-49FE-9AE6-0602C8A93355}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Abstract", "GameOfFifteen.CommandCenter.Abstract\GameOfFifteen.CommandCenter.Abstract.csproj", "{C40A147B-027B-49FE-9AE6-0602C8A93355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.CommandCenter.Impl", "GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj", "{2622FA2C-B8FA-457B-B668-2A5A67A80880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Impl", "GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj", "{2622FA2C-B8FA-457B-B668-2A5A67A80880}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.CommandCenter.Exceptions", "GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj", "{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +59,15 @@ Global
 		{2622FA2C-B8FA-457B-B668-2A5A67A80880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2622FA2C-B8FA-457B-B668-2A5A67A80880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2622FA2C-B8FA-457B-B668-2A5A67A80880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D970CEF3-E5F7-4731-B500-6DB8784022C8}
 	EndGlobalSection
 EndGlobal
