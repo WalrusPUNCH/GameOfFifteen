@@ -60,7 +60,8 @@ namespace GameOfFifteen.CommandCenter.Impl
                     command = GetUndoCommand();
                     break;
             }
-         
+            if (command == null)
+                throw new NotExistingCommandException("You entered non existing command. Try again");
             return command;
         }
 
@@ -77,10 +78,10 @@ namespace GameOfFifteen.CommandCenter.Impl
         private ICommand GetStartGameCommand(string[] parameters)
         {
             if (parameters.Length < 4)
-                return null;
+                throw new NotExistingCommandException("You entered non existing command. Try again");
 
             if (int.TryParse(parameters[1], out int fieldSize) == false)
-                return null;
+                throw new InvalidMapSizeException("You entered invalid map size. Map size should be higher than 2 and lower than 10.");
 
             Level level;
             FrameType frameType;
