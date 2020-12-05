@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.15.2" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameOfFifteen.CommandCenter.Abstract\GameOfFifteen.CommandCenter.Abstract.csproj" />
+    <ProjectReference Include="..\GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj" />
+    <ProjectReference Include="..\GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj" />
+    <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
+  </ItemGroup>
+
+</Project>
