@@ -26,9 +26,10 @@ namespace GameOfFifteen.CommandCenter.Impl
         public ICommand GetCommand(string[] parameters)
         {
             ICommand command = null;
-            string keyWord = string.Empty;
-            if (parameters.Length > 0)
-                keyWord = parameters[0];
+            if (parameters.Length < 1)
+                throw new NotExistingCommandException("You entered non existing command. Try again");
+
+            string keyWord = parameters[0];
 
             switch (keyWord)
             {
