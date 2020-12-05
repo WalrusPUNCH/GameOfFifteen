@@ -23,23 +23,39 @@ namespace GameOfFifteen.CommandCenter.Tests
             testedCommandManager = new CommandManager(gameCreatorMock.Object, manipulatorMock.Object, historyMock.Object);
         }
 
-
-        [TestCase((object)new [] { "unknown", "command" })]
-        [TestCase((object)new[] { "unknownygdsyofhfbhdsyuhg73yr27838t8wtfh8he0t8ewg87fhg8h87gtf6d5tfyuihgyft54deftygbunubygf6y" })]
-        [TestCase((object)new[] { "unknown", "command", "unknown", "command", "unknown", "command" , "unknown"})]
-        [TestCase((object)new[] { "start", "xsize", "easy", })]
-        public void GetCommand_InvalidKeyWords_ReturnsNull(string[] parameters)
+        [TestCase((object)new[] { "unknown" })]
+        [TestCase((object)new[] { "unknown", "start", "3", "easy", "normal"})]
+        [TestCase((object)new[] { "bigstringbigstringbigstringbigstringbigstringbigstringbigstringbigstringbigstringbigstringbigstring" })]
+        [TestCase((object)new[] { "move", "up" })]
+        [TestCase((object)new[] { ""})]
+        [TestCase((object)new[] { " " })]
+        [TestCase(null)]
+        public void GetCommand_InvalidKeyWords_ThrowsNotExistingCommandException(string[] parameters)
         {
             //arrange
-                // setup method call
+            // setup method call
+
             //act
-            var returnedCommand = testedCommandManager.GetCommand(parameters);
+            TestDelegate testDelegate = () => testedCommandManager.GetCommand(parameters);
 
             //assert
-            Assert.Null(returnedCommand, null);
+            Assert.Throws<NotExistingCommandException>(testDelegate);
         }
 
+        [TestCase((object)new[] { "start" })]
+        [TestCase((object)new[] { "start", "3" })]
+        [TestCase((object)new[] { "start", "3", "easy" })]
+        public void GetCommand_NotEnoughParametersForStartGameCommand_ThrowsNotEnoughParametersForCommandException(string[] parameters)
+        {
+            //arrange
+            // setup method call
 
-        
+            //act
+            TestDelegate testDelegate = () => testedCommandManager.GetCommand(parameters);
+
+            //assert
+            Assert.Throws<NotEnoughParametersForCommandException>(() => testedCommandManager.GetCommand(parameters));
+        }
+
     }
 }
