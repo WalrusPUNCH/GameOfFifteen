@@ -78,7 +78,7 @@ namespace GameOfFifteen.CommandCenter.Impl
         private ICommand GetStartGameCommand(string[] parameters)
         {
             if (parameters.Length < 4)
-                throw new NotExistingCommandException("You entered non existing command. Try again");
+                throw new NotEnoughParametersForCommandException("Not enough parameters for command");
 
             if (int.TryParse(parameters[1], out int fieldSize) == false)
                 throw new InvalidMapSizeException("You entered invalid map size. Map size should be higher than 2 and lower than 10.");

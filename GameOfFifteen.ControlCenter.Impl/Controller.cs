@@ -46,6 +46,7 @@ namespace GameOfFifteen.ControlCenter.Impl
                 catch (Exception ex)
                 {
                     if (ex is NotExistingCommandException ||
+                        ex is NotEnoughParametersForCommandException ||
                         ex is InvalidMapSizeException ||
                         ex is InvalidLevelException ||
                         ex is InvalidFrameTypeException ||
