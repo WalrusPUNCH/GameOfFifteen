@@ -18,6 +18,7 @@
     <ProjectReference Include="..\GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj" />
     <ProjectReference Include="..\GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj" />
     <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
+    <ProjectReference Include="..\GameOfFifteen.Game.Entities\GameOfFifteen.Game.Entities.csproj" />
   </ItemGroup>
 
 </Project>

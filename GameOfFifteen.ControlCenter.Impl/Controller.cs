@@ -11,7 +11,6 @@ namespace GameOfFifteen.ControlCenter.Impl
     {
         private IGame _currentGame;
         private ICommand _currentCommand;
-        private bool _keepGameActive = true;
 
         private readonly ICommandHistory _history;
         private readonly ICommandManager _commandManager;
@@ -33,10 +32,9 @@ namespace GameOfFifteen.ControlCenter.Impl
         public void ServeGame()
         {
             _console.ShowText(_gameMessageHolder.GetGeneralGameInformation());
-            string[] input;
+            string[] input = _console.GetProcessedInput();
             do
             {
-                input = _console.GetProcessedInput();
                 if (input.Length < 1 || string.IsNullOrWhiteSpace(input[0]))
                     continue;
                 try
@@ -50,13 +48,15 @@ namespace GameOfFifteen.ControlCenter.Impl
                         ex is InvalidMapSizeException ||
                         ex is InvalidLevelException ||
                         ex is InvalidFrameTypeException ||
-                        ex is InvalidRandomActionsParameterException)
+                        ex is InvalidRandomActionsParameterException ||
+                        ex is GameIsNotStartedException)
                     {
                         _console.ShowText(ex.Message);
                     }
                 }
 
                 _currentCommand?.Execute();
+                input = _console.GetProcessedInput();
             }
             while (input?[0] != "quit" && input?[0] != "q");
         }
@@ -78,7 +78,6 @@ namespace GameOfFifteen.ControlCenter.Impl
         }
         private void OnCurrentGameWon()
         {
-            //_keepGameActive = false;
             _console.ShowText(_gameMessageHolder.GetVictoriousMessage(_currentGame.Moves));
         }
 

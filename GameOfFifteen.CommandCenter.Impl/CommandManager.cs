@@ -73,6 +73,8 @@ namespace GameOfFifteen.CommandCenter.Impl
 
         private ICommand GetMoveCommand(Direction direction)
         {
+            if (Game == null)
+                throw new GameIsNotStartedException("You can't make moves until the game has started");
             return new MoveCommand(Game, direction, _manipulator, _history);
         }
 
@@ -88,7 +90,7 @@ namespace GameOfFifteen.CommandCenter.Impl
             FrameType frameType;
             bool isRandomActionsEnabled = false;
            
-            if(fieldSize < 2 || fieldSize >= 10)
+            if(fieldSize <= 2 || fieldSize >= 10)
             {
                 throw new InvalidMapSizeException("You entered invalid map size. Map size should be higher than 2 and lower than 10.");
             }
