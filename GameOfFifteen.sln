@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Impl", "GameOfFifteen.CommandCenter.Impl\GameOfFifteen.CommandCenter.Impl.csproj", "{2622FA2C-B8FA-457B-B668-2A5A67A80880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.CommandCenter.Exceptions", "GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj", "{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Exceptions", "GameOfFifteen.ControlCenter.Exceptions\GameOfFifteen.CommandCenter.Exceptions.csproj", "{7ED31BCA-321F-4AF6-AACB-C8EE3597A979}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.CommandCenter.Tests", "CommandCenter.Tests\GameOfFifteen.CommandCenter.Tests.csproj", "{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Tests", "CommandCenter.Tests\GameOfFifteen.CommandCenter.Tests.csproj", "{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.Game.Tests", "GameOfFifteen.Game.Tests\GameOfFifteen.Game.Tests.csproj", "{ACF46C9F-B49D-4CD9-A841-A304682EC492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF46C9F-B49D-4CD9-A841-A304682EC492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF46C9F-B49D-4CD9-A841-A304682EC492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF46C9F-B49D-4CD9-A841-A304682EC492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF46C9F-B49D-4CD9-A841-A304682EC492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
