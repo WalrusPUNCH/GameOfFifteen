@@ -37,7 +37,7 @@ namespace GameOfFifteen.Game.Tests
         }
 
         [Test]
-        public void FrameCreatorBoardCreation_BoardSize_SizeOfReturnedArrayMatchesInputSize([Range(3,9)] int boardSize)
+        public void BoardCreation_BoardSize_SizeOfReturnedArrayMatchesInputSize([Range(3,9)] int boardSize)
         {
             // arrange
             FrameCreator frameCreator = new TextFrameCreator();
@@ -51,7 +51,7 @@ namespace GameOfFifteen.Game.Tests
         }
 
         [TestCaseSource("BoardSizeAndExpectedResultTestCases")]
-        public void FrameCreatorBoardCreation_ValidSettings_ReturnValueMatchesExpectedValue(int boardSize, Frame[,] expectedResult)
+        public void BoardCreation_ValidSettings_ReturnValueMatchesExpectedValue(int boardSize, Frame[,] expectedResult)
         {
             // arrange
             FrameCreator frameCreator = new TextFrameCreator();

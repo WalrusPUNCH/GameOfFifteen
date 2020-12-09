@@ -13,10 +13,8 @@ namespace GameOfFifteen.Game.Tests
             {
                 for (int j = 0; j < testBoard.GetLength(1); j++)
                 {
-                    if (testBoard[i, j] == null && expectedBoard[i, j] == null)
-                        continue;
-                    if (testBoard[i, j].Content != expectedBoard[i, j].Content ||
-                        testBoard[i, j].FinishPoint != expectedBoard[i, j].FinishPoint)
+                    if (testBoard[i, j]?.Content != expectedBoard[i, j]?.Content ||
+                        testBoard[i, j]?.FinishPoint != expectedBoard[i, j]?.FinishPoint)
                     {
                         return false;
                     }

@@ -73,8 +73,6 @@ namespace GameOfFifteen.Game.Tests
                         {new TextFrame("4", new Point(0,1)), new TextFrame("6", new Point(2,1)), null},
                         {new TextFrame("7", new Point(0,2)), new TextFrame("5", new Point(1,1)), new TextFrame("8", new Point(1,2))}
                     });
-
-
             }
         }
 
@@ -83,19 +81,79 @@ namespace GameOfFifteen.Game.Tests
         public void MoveFrameOutOfNewPlayfield_RightAndDown_ReturnsFalse(Direction direction)
         {
             // arrange
-            Frame[,] testBoard = new Frame[3, 3]
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
                     {
                         {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
                         {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
                         {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
                     };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
             Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
             playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
 
+            Manipulator testManipulator = Manipulator.GetInstance();
+
             // act
-            bool testResult = Manipulator.GetInstance().MakeMove(playfieldStub.Object, direction, false);
+            bool testResult = testManipulator.MakeMove(playfieldStub.Object, direction, false);
+
             // assert
-            Assert.IsFalse(testResult);
+            Assert.IsFalse(testResult); 
+        }
+
+        [TestCase(Direction.Right)]
+        [TestCase(Direction.Down)]
+        public void MoveFrameOutOfNewPlayfield_RightAndDown_BoardUnchanged(Direction direction)
+        {
+            // arrange
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
+                    {
+                        {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
+                        {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
+                        {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
+                    };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
+            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
+            playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
+
+            Manipulator testManipulator = Manipulator.GetInstance();
+
+            // act
+            bool testResult = testManipulator.MakeMove(playfieldStub.Object, direction, false);
+
+            // assert
+            Assert.IsTrue(BoardComparer.AreBoardsEqual(testBoard, testBoardBeforeMoveAttempt));
+        }
+
+        [TestCase(Direction.Right)]
+        [TestCase(Direction.Down)]
+        public void MoveFrameOutOfNewPlayfield_RightAndDown_NoPlayfieldChangedEventInvokation(Direction direction)
+        {
+            // arrange
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
+                    {
+                        {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
+                        {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
+                        {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
+                    };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
+            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
+            playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
+
+            Manipulator testManipulator = Manipulator.GetInstance();
+
+            bool wasEventCalled = false;
+            testManipulator.NotifyOnPlayfieldChange += (board) => wasEventCalled = true;
+            // act
+            bool testResult = testManipulator.MakeMove(playfieldStub.Object, direction, false);
+
+            // assert
+            Assert.IsFalse(wasEventCalled);
         }
 
         [TestCase(Direction.Left)]
@@ -103,23 +161,79 @@ namespace GameOfFifteen.Game.Tests
         public void MoveFrameOnNewPlayfield_UpAndLeft_ReturnsTrue(Direction direction)
         {
             // arrange
-            Frame[,] testBoard = new Frame[3, 3]
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
                     {
                         {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
                         {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
                         {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
                     };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
             Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
             playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
 
             // act
             bool testResult = Manipulator.GetInstance().MakeMove(playfieldStub.Object, direction, false);
+
             // assert
             Assert.IsTrue(testResult);
         }
 
+        [TestCase(Direction.Left)]
+        [TestCase(Direction.Up)]
+        public void MoveFrameOnNewPlayfield_UpAndLeft_BoardChanges(Direction direction)
+        {
+            // arrange
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
+                    {
+                        {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
+                        {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
+                        {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
+                    };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
+            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
+            playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
+
+            // act
+            bool testResult = Manipulator.GetInstance().MakeMove(playfieldStub.Object, direction, false);
+
+            // assert
+            Assert.IsFalse(BoardComparer.AreBoardsEqual(testBoard, testBoardBeforeMoveAttempt));
+        }
+
+        [TestCase(Direction.Left)]
+        [TestCase(Direction.Up)]
+        public void MoveFrameOnNewPlayfield_UpAndLeft_PlayfieldChangedEventInvokation(Direction direction)
+        {
+            // arrange
+            Frame[,] testBoardBeforeMoveAttempt = new Frame[3, 3]
+                    {
+                        {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
+                        {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
+                        {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
+                    };
+
+            Frame[,] testBoard = (Frame[,])testBoardBeforeMoveAttempt.Clone();
+
+            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
+            playfieldStub.SetupGet(x => x.Board).Returns(testBoard);
+            bool wasEventCalled = false;
+
+            Manipulator testManipulator = Manipulator.GetInstance();
+            testManipulator.NotifyOnPlayfieldChange += (board) => wasEventCalled = true;
+
+            // act
+            bool testResult = Manipulator.GetInstance().MakeMove(playfieldStub.Object, direction, false);
+
+            // assert
+            Assert.IsTrue(wasEventCalled);
+        }
+
         [TestCaseSource("MoveEmptyFrameDirectionAndStartBoardAndExpectedBoardTestCases")]
-        public void MoveFrameOnPlayfield_ToTheLeft_MatchesExpectedResult(Direction direction, Frame[,] startBoard, Frame[,] expectedBoard)
+        public void MoveFrameOnPlayfield_InDirection_MatchesExpectedResult(Direction direction, Frame[,] startBoard, Frame[,] expectedBoard)
         {
             // arrange           
             Mock<IPlayfield> testplayfieldStub = new Mock<IPlayfield>();

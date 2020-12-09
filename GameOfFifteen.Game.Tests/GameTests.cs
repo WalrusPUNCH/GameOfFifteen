@@ -6,6 +6,7 @@ using GameOfFifteen.Game.Entities;
 using System.Collections.Generic;
 using GameOfFifteen.Game.Impl.FrameCreation.ConcreteFrames;
 using System.Drawing;
+using System;
 
 namespace GameOfFifteen.Game.Tests
 {
@@ -61,7 +62,20 @@ namespace GameOfFifteen.Game.Tests
             _defaultGameSettings = new GameSettings(3, Level.Easy, FrameType.Normal, false);
             _testGameSettings = new GameSettings(5, Level.Hard, FrameType.Boarded, true);
         }
-        
+
+        [Test]
+        public void GameConstructor_NullSettings_ThrowsException()
+        {
+            // arrange
+            GameSettings testNullSettings = null;
+
+            // act
+            TestDelegate testDelegate = () => new Impl.Game(testNullSettings);
+
+            // assert
+            Assert.Throws<ArgumentNullException>(testDelegate);
+        }
+
 
         [Test]
         public void RestoreMovesFromMemento_15_MovesInGameRestoredFromMemento()
@@ -94,11 +108,11 @@ namespace GameOfFifteen.Game.Tests
         }
 
         [TestCaseSource("UnsolvedBoardsTestCases")]
-        public void RestorePlayfieldFromMemento_TestPlayfield_PlayfieldInGameRestoredFromMemento(Frame[,] unsolvedBoard)
+        public void RestorePlayfieldFromMemento_TestPlayfield_PlayfieldInGameRestoredFromMemento(Frame[,] randomBoard)
         {
             // arrange
             Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
-            playfieldStub.SetupGet(x => x.Board).Returns(unsolvedBoard);
+            playfieldStub.SetupGet(x => x.Board).Returns(randomBoard);
             GameMemento mementoStub = new GameMemento(_defaultGameSettings, 15, playfieldStub.Object);
 
             IGame testedGame = new Impl.Game(_defaultGameSettings);
@@ -110,8 +124,8 @@ namespace GameOfFifteen.Game.Tests
             Assert.That(testedGame.Playfield, Is.EqualTo(mementoStub.Playfield));
         }
 
-        [TestCaseSource("SolvedBoardsTestCases")]
-        public void IsSolved_SolvedPlayfield_ReturnsTrue(Frame[,] solvedBoard)
+        [Test]
+        public void IsSolved_SolvedPlayfield_ReturnsTrue()
         {
             // arrange
             IGame testedGame = new Impl.Game(_defaultGameSettings);
@@ -124,11 +138,27 @@ namespace GameOfFifteen.Game.Tests
         }
 
         [Test]
+        public void IsSolved_SolvedPlayfield_GameWonEventInvoked()
+        {
+            // arrange
+            IGame testedGame = new Impl.Game(_defaultGameSettings);
+            bool wasEventInvoked = false;
+            testedGame.NotifyOnGameWon += () => wasEventInvoked = true;
+
+            // act
+            bool isTestPlayfieldSolved = testedGame.IsSolved();
+
+            // assert
+            Assert.IsTrue(wasEventInvoked);
+        }
+
+        [Test]
         public void IsSolved_SolvedPlayfield_ReturnsFalse()
         {
             // arrange
             IGame testedGame = new Impl.Game(_defaultGameSettings);
             Manipulator.GetInstance().MakeMove(testedGame.Playfield, Direction.Up, false);
+
             // act
             bool isTestPlayfieldSolved = testedGame.IsSolved();
 
@@ -136,11 +166,25 @@ namespace GameOfFifteen.Game.Tests
             Assert.IsFalse(isTestPlayfieldSolved);
         }
 
+        public void IsSolved_SolvedPlayfield_NoEventInvokation()
+        {
+            // arrange
+            IGame testedGame = new Impl.Game(_defaultGameSettings);
+            Manipulator.GetInstance().MakeMove(testedGame.Playfield, Direction.Up, false);
+            bool wasEventCalled = false;
+            testedGame.NotifyOnGameWon += () => wasEventCalled = true;
+
+            // act
+            bool isTestPlayfieldSolved = testedGame.IsSolved();
+
+            // assert
+            Assert.IsFalse(wasEventCalled);
+        }
+
         [Test]
         public void IncrementMovesNumber_NumberBeforeIncrementation_ReturnsNumberBeforeIncrementationPlusOne()
         {
             // arrange
-
             IGame testedGame = new Impl.Game(_defaultGameSettings);
             int movesBefore = testedGame.Moves;
             int expectedValue = movesBefore + 1;
