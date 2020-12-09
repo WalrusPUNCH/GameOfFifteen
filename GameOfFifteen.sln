@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.CommandCenter.Tests", "CommandCenter.Tests\GameOfFifteen.CommandCenter.Tests.csproj", "{67C52034-CB3F-4D72-ABD4-CD6FBD35C1BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfFifteen.Game.Tests", "GameOfFifteen.Game.Tests\GameOfFifteen.Game.Tests.csproj", "{ACF46C9F-B49D-4CD9-A841-A304682EC492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfFifteen.Game.Tests", "GameOfFifteen.Game.Tests\GameOfFifteen.Game.Tests.csproj", "{ACF46C9F-B49D-4CD9-A841-A304682EC492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -153,7 +153,7 @@ namespace GameOfFifteen.Game.Tests
         }
 
         [Test]
-        public void IsSolved_SolvedPlayfield_ReturnsFalse()
+        public void IsSolved_UnsolvedPlayfield_ReturnsFalse()
         {
             // arrange
             IGame testedGame = new Impl.Game(_defaultGameSettings);
@@ -166,7 +166,8 @@ namespace GameOfFifteen.Game.Tests
             Assert.IsFalse(isTestPlayfieldSolved);
         }
 
-        public void IsSolved_SolvedPlayfield_NoEventInvokation()
+        [Test]
+        public void IsSolved_UnolvedPlayfield_NoEventInvokation()
         {
             // arrange
             IGame testedGame = new Impl.Game(_defaultGameSettings);
