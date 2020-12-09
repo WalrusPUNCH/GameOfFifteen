@@ -18,9 +18,9 @@ namespace GameOfFifteen.CommandCenter.Tests
         [SetUp]
         public void Setup()
         {
-            Mock<IGameCreator> gameCreatorStub = new Mock<IGameCreator>(MockBehavior.Strict);
-            Mock<IManipulator> manipulatorStub = new Mock<IManipulator>(MockBehavior.Strict);
-            Mock<ICommandHistory> historyMStub = new Mock<ICommandHistory>(MockBehavior.Strict);
+            Mock<IGameCreator> gameCreatorStub = new Mock<IGameCreator>();
+            Mock<IManipulator> manipulatorStub = new Mock<IManipulator>();
+            Mock<ICommandHistory> historyMStub = new Mock<ICommandHistory>();
             testedCommandManager = new CommandManager(gameCreatorStub.Object, manipulatorStub.Object, historyMStub.Object);
         }
 

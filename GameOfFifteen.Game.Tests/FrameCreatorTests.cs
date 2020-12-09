@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Moq;
 
-using GameOfFifteen.Game.Abstract;
 using GameOfFifteen.Game.Entities;
 using GameOfFifteen.Game.Impl.FrameCreation.ConcreteFrameCreators;
 using System.Collections.Generic;
@@ -44,43 +43,24 @@ namespace GameOfFifteen.Game.Tests
             FrameCreator frameCreator = new TextFrameCreator();
 
             // act
-
             Frame[,] testResult = frameCreator.CreateBoard(boardSize);
 
             // assert
-
             Assert.IsTrue(testResult.GetLength(0) == boardSize);
-            Assert.IsTrue(testResult.GetLength(1) == boardSize);
-
-            
+            Assert.IsTrue(testResult.GetLength(1) == boardSize);           
         }
 
-            [TestCaseSource("BoardSizeAndExpectedResultTestCases")]
-
+        [TestCaseSource("BoardSizeAndExpectedResultTestCases")]
         public void FrameCreatorBoardCreation_ValidSettings_ReturnValueMatchesExpectedValue(int boardSize, Frame[,] expectedResult)
         {
             // arrange
             FrameCreator frameCreator = new TextFrameCreator();
 
             // act
-
             Frame[,] testResult = frameCreator.CreateBoard(boardSize);
 
-            // assert 
-            for (int i = 0; i < testResult.GetLength(0); i++)
-            {
-                for (int j = 0; j < testResult.GetLength(1); j++)
-                {
-                    if (testResult[i, j] == null && expectedResult[i, j] == null)
-                    {
-                        Assert.IsTrue(testResult[i, j] == expectedResult[i, j]);
-                        continue;
-                    }
-
-                    Assert.IsTrue(testResult[i, j].Content == expectedResult[i, j].Content);
-                    Assert.IsTrue(testResult[i, j].FinishPoint == expectedResult[i, j].FinishPoint);
-                }
-            }
+            // assert
+            Assert.IsTrue(BoardComparer.AreBoardsEqual(testResult, expectedResult));
         }
 
     }

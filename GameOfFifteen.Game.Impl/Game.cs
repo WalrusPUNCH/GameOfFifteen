@@ -42,8 +42,8 @@ namespace GameOfFifteen.Game.Impl
 
         public bool IsSolved()
         {
-            var emptyBoard = Playfield.Board[Playfield.Board.GetLength(0) - 1, Playfield.Board.GetLength(1) - 1];
-            if (emptyBoard != null)
+            var emptyFrame = Playfield.Board[Playfield.Board.GetLength(0) - 1, Playfield.Board.GetLength(1) - 1];
+            if (emptyFrame != null)
                 return false;
             for (int i = 0; i < Playfield.Board.GetLength(0); i++)
             {

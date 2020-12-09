@@ -5,6 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="System.Runtime" Version="4.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\GameOfFifteen.Game.Abstract\GameOfFifteen.Game.Abstract.csproj" />
       <ProjectReference Include="..\GameOfFifteen.Game.Entities\GameOfFifteen.Game.Entities.csproj" />
     </ItemGroup>
