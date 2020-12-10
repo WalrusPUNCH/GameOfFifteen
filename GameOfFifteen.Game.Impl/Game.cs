@@ -16,8 +16,6 @@ namespace GameOfFifteen.Game.Impl
 
         public Game(GameSettings settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
             Settings = settings;
             Moves = 0;
             Playfield = new Playfield(settings.FrameType, settings.Size);

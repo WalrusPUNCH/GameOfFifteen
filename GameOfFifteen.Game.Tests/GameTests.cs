@@ -63,19 +63,6 @@ namespace GameOfFifteen.Game.Tests
             _testGameSettings = new GameSettings(5, Level.Hard, FrameType.Boarded, true);
         }
 
-        [Test]
-        public void GameConstructor_NullSettings_ThrowsException()
-        {
-            // arrange
-            GameSettings testNullSettings = null;
-
-            // act
-            TestDelegate testDelegate = () => new Impl.Game(testNullSettings);
-
-            // assert
-            Assert.Throws<ArgumentNullException>(testDelegate);
-        }
-
 
         [Test]
         public void RestoreMovesFromMemento_15_MovesInGameRestoredFromMemento()
@@ -123,6 +110,22 @@ namespace GameOfFifteen.Game.Tests
             // assert
             Assert.That(testedGame.Playfield, Is.EqualTo(mementoStub.Playfield));
         }
+
+        [Test]
+        public void IncrementMovesNumber_NumberBeforeIncrementation_ReturnsNumberBeforeIncrementationPlusOne()
+        {
+            // arrange
+            IGame testedGame = new Impl.Game(_defaultGameSettings);
+            int movesBefore = testedGame.Moves;
+            int expectedValue = movesBefore + 1;
+
+            // act
+            testedGame.IncrementMovesNumber();
+
+            // assert
+            Assert.AreEqual(expectedValue, testedGame.Moves);
+        }
+
 
         [Test]
         public void IsSolved_SolvedPlayfield_ReturnsTrue()
@@ -181,21 +184,6 @@ namespace GameOfFifteen.Game.Tests
             // assert
             Assert.IsFalse(wasEventCalled);
         }
-
-        [Test]
-        public void IncrementMovesNumber_NumberBeforeIncrementation_ReturnsNumberBeforeIncrementationPlusOne()
-        {
-            // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-            int movesBefore = testedGame.Moves;
-            int expectedValue = movesBefore + 1;
-
-            // act
-            testedGame.IncrementMovesNumber();
-
-            // assert
-            Assert.AreEqual(expectedValue, testedGame.Moves);
-        }
-
+      
     }
 }

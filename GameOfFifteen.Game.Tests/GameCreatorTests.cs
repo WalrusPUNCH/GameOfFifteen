@@ -53,7 +53,7 @@ namespace GameOfFifteen.Game.Tests
             _manipulatorMock.Verify(m => m.ShuffleBoard(newCreatedGame.Playfield, _defaultSettings.Level), Times.Once());
             Assert.IsTrue(wasEventCalled);
         }
-
+        /*
         [Test]
         public void CreateGame_InvalidSettings_NoGameCreatedEventInvokation()
         {
@@ -69,7 +69,7 @@ namespace GameOfFifteen.Game.Tests
             // assert
             Assert.Throws<ArgumentNullException>(testDelegate);
             Assert.IsFalse(wasEventCalled);
-        }
+        }*/
 
     }
 }

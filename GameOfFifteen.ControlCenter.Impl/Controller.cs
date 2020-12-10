@@ -33,7 +33,7 @@ namespace GameOfFifteen.ControlCenter.Impl
         {
             _console.ShowText(_gameMessageHolder.GetGeneralGameInformation());
             string[] input = _console.GetProcessedInput();
-            do
+            while (input?[0] != "quit" && input?[0] != "q")
             {
                 if (input.Length < 1 || string.IsNullOrWhiteSpace(input[0]))
                     continue;
@@ -58,7 +58,7 @@ namespace GameOfFifteen.ControlCenter.Impl
                 _currentCommand?.Execute();
                 input = _console.GetProcessedInput();
             }
-            while (input?[0] != "quit" && input?[0] != "q");
+            
         }
         
         private void OnNewGameCreated(IGame game)
