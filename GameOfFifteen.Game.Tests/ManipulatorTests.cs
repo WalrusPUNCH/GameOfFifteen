@@ -92,7 +92,7 @@ namespace GameOfFifteen.Game.Tests
                     };
 
             _testBoard = (Frame[,])_testBoardBeforeMoveAttempt.Clone();
-            _playfieldStub.SetupGet(x => x.Board).Returns(_testBoard);
+            _playfieldStub.SetupGet(x => x.Board).Returns(_testBoardBeforeMoveAttempt);
 
         }
 
@@ -121,7 +121,7 @@ namespace GameOfFifteen.Game.Tests
             bool testResult = testManipulator.MakeMove(_playfieldStub.Object, direction, false);
 
             // assert
-            Assert.IsTrue(BoardComparer.AreBoardsEqual(_testBoard, _testBoardBeforeMoveAttempt));
+            Assert.IsTrue(BoardComparer.AreBoardsEqual(_testBoard, _playfieldStub.Object.Board));
         }
 
         [TestCase(Direction.Right)]

@@ -13,15 +13,15 @@ namespace GameOfFifteen.CommandCenter.Tests
     public class CommandManagerTests
     {
 
-        private CommandManager testedCommandManager;
-
+        Mock<IGameCreator> _gameCreatorStub;
+        Mock<IManipulator> _manipulatorStub;
+        Mock<ICommandHistory> _historyStub;
         [SetUp]
         public void Setup()
         {
-            Mock<IGameCreator> gameCreatorStub = new Mock<IGameCreator>();
-            Mock<IManipulator> manipulatorStub = new Mock<IManipulator>();
-            Mock<ICommandHistory> historyMStub = new Mock<ICommandHistory>();
-            testedCommandManager = new CommandManager(gameCreatorStub.Object, manipulatorStub.Object, historyMStub.Object);
+            _gameCreatorStub = new Mock<IGameCreator>();
+            _manipulatorStub = new Mock<IManipulator>();
+            _historyStub = new Mock<ICommandHistory>();
         }
 
         [TestCase((object)new[] { "unknown" })]
@@ -34,12 +34,14 @@ namespace GameOfFifteen.CommandCenter.Tests
         {
             //arrange
             // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
 
             //act
             TestDelegate testDelegate = () => testedCommandManager.GetCommand(parameters);
 
             //assert
-            Assert.Throws<NotExistingCommandException>(testDelegate);
+            var ex = Assert.Throws<NotExistingCommandException>(testDelegate);
+            Assert.That(ex.Message, Is.EqualTo("You entered non existing command. Try again"));
         }
 
         [TestCase((object)new[] { "start" })]
@@ -48,12 +50,13 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_NotEnoughParametersForStartGameCommand_ThrowsNotEnoughParametersForCommandException(string[] parameters)
         {
             //arrange
-                // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
             //act
             TestDelegate testDelegate = () => testedCommandManager.GetCommand(parameters);
 
             //assert
-            Assert.Throws<NotEnoughParametersForCommandException>(() => testedCommandManager.GetCommand(parameters));
+            var ex = Assert.Throws<NotEnoughParametersForCommandException>(() => testedCommandManager.GetCommand(parameters));
+            Assert.That(ex.Message, Is.EqualTo("You entered non existing command. Try again"));
         }
 
         [Test]
@@ -61,7 +64,7 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_ValidMapSizeParameterForStartGameCommand_ReturnsStartGameCommand([Range(3,9)]int mapSizeParameter)
         {
             //arrange
-            // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
             string[] testInput = { "start", mapSizeParameter.ToString(), "easy", "normal" };
 
             //act
@@ -76,7 +79,7 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_ValidLevelParameterForStartGameCommand_ReturnsStartGameCommand([Values] Level level)
         {
             //arrange
-            // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
             string[] testInput = { "start", "3", level.ToString(), "normal" };
 
             //act
@@ -91,7 +94,7 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_ValidFrameTypeParameterForStartGameCommand_ReturnsStartGameCommand([Values] FrameType frameType)
         {
             //arrange
-            // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
             string[] testInput = { "start", "3", "easy", frameType.ToString() };
 
             //act
@@ -112,8 +115,8 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_ValidParametersForMoveCommand_ReturnsMoveCommand(string direction)
         {
             //arrange
-            // setup method call
-            Mock<IGame> gameStub = new Mock<IGame>(MockBehavior.Strict);
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
+            Mock<IGame> gameStub = new Mock<IGame>();
             testedCommandManager.Game = gameStub.Object;
             string[] testInput = { direction };
 
@@ -129,7 +132,7 @@ namespace GameOfFifteen.CommandCenter.Tests
         public void GetCommand_ValidParametersForUndoCommand_ReturnsUndoCommand(string textCommand)
         {
             //arrange
-            // setup method call
+            CommandManager testedCommandManager = new CommandManager(_gameCreatorStub.Object, _manipulatorStub.Object, _historyStub.Object);
             string[] testInput = { textCommand };
 
             //act

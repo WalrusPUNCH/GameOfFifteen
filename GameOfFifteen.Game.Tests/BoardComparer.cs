@@ -9,6 +9,11 @@ namespace GameOfFifteen.Game.Tests
     {
         public static bool AreBoardsEqual(Frame[,] testBoard, Frame[,] expectedBoard)
         {
+            if (testBoard == null && expectedBoard == null)
+                return true;
+            if (testBoard == null || expectedBoard == null)
+                return false;
+
             for (int i = 0; i < testBoard.GetLength(0); i++)
             {
                 for (int j = 0; j < testBoard.GetLength(1); j++)

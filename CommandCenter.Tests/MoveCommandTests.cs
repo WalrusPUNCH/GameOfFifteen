@@ -92,12 +92,12 @@ namespace GameOfFifteen.CommandCenter.Tests
             testCommand.Execute();
 
             // assert
+            _manipulatorMock.Verify(m => m.MakeMove(_playfieldStub.Object, direction, false), Times.Once);
+            _gameMock.Verify(g => g.SaveGameMemento(), Times.Once);
+            _historyMock.Verify(h => h.SaveCommand(testCommand), Times.Once);
 
-            _gameMock.Verify(g => g.SaveGameMemento(), Times.Once());
-            _gameMock.Verify(g => g.IncrementMovesNumber(), Times.Once());
-            _gameMock.Verify(g => g.IsSolved(), Times.Once());
-            _historyMock.Verify(h => h.SaveCommand(testCommand), Times.Once());
-            _manipulatorMock.Verify(m => m.MakeMove(_playfieldStub.Object, direction, false), Times.Once());
+            _gameMock.Verify(g => g.IncrementMovesNumber(), Times.Once);
+            _gameMock.Verify(g => g.IsSolved(), Times.Once);
         }
 
 
@@ -118,8 +118,8 @@ namespace GameOfFifteen.CommandCenter.Tests
             testCommand.Execute();
 
             // assert
-            _gameMock.Verify(g => g.SaveGameMemento(), Times.Once());
-            _manipulatorMock.Verify(m => m.MakeMove(_playfieldStub.Object, direction, false), Times.Once());
+            _manipulatorMock.Verify(m => m.MakeMove(_playfieldStub.Object, direction, false), Times.Once);
+            _historyMock.Verify(h => h.SaveCommand(testCommand), Times.Never);
         }
 
     }
