@@ -91,7 +91,12 @@ namespace GameOfFifteen.Game.Tests
                         {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
                     };
 
-            _testBoard = (Frame[,])_testBoardBeforeMoveAttempt.Clone();
+            _testBoard = new Frame[3, 3]
+                    {
+                        {new TextFrame("1", new Point(0,0)), new TextFrame("2", new Point(1,0)), new TextFrame("3", new Point(2,0))},
+                        {new TextFrame("4", new Point(0,1)), new TextFrame("5", new Point(1,1)), new TextFrame("6", new Point(2,1))},
+                        {new TextFrame("7", new Point(0,2)), new TextFrame("8", new Point(1,2)), null}
+                    };
             _playfieldStub.SetupGet(x => x.Board).Returns(_testBoardBeforeMoveAttempt);
 
         }
@@ -122,6 +127,7 @@ namespace GameOfFifteen.Game.Tests
 
             // assert
             Assert.IsTrue(BoardComparer.AreBoardsEqual(_testBoard, _playfieldStub.Object.Board));
+            //Assert.AreEqual(_testBoard, _playfieldStub.Object.Board);
         }
 
         [TestCase(Direction.Right)]
@@ -164,6 +170,8 @@ namespace GameOfFifteen.Game.Tests
 
             // assert
             Assert.IsFalse(BoardComparer.AreBoardsEqual(_testBoard, _testBoardBeforeMoveAttempt));
+            //Assert.AreNotEqual(_testBoard, _testBoardBeforeMoveAttempt);
+
         }
 
         [TestCase(Direction.Left)]
@@ -194,6 +202,8 @@ namespace GameOfFifteen.Game.Tests
 
             // assert
             Assert.IsTrue(BoardComparer.AreBoardsEqual(startBoard, expectedBoard));
+            //Assert.AreEqual(startBoard, expectedBoard);
+
         }
     }
 }
