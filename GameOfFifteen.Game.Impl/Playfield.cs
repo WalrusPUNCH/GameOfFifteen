@@ -6,7 +6,7 @@ using GameOfFifteen.Game.Impl.FrameCreation.ConcreteFrameCreators;
 
 namespace GameOfFifteen.Game.Impl
 {
-    public class Playfield : IPlayfield, ICloneable
+    public class Playfield : IPlayfield
     { 
        public  Frame[,] Board { get; private set; }
        private readonly FrameCreator _frameCreator;

@@ -41,18 +41,15 @@ namespace GameOfFifteen.ControlCenter.Impl
                 {
                     _currentCommand = _commandManager.GetCommand(input);
                 }
-                catch (Exception ex)
-                {
-                    if (ex is NotExistingCommandException ||
+                catch (Exception ex) when (ex is NotExistingCommandException ||
                         ex is NotEnoughParametersForCommandException ||
                         ex is InvalidMapSizeException ||
                         ex is InvalidLevelException ||
                         ex is InvalidFrameTypeException ||
                         ex is InvalidRandomActionsParameterException ||
                         ex is GameIsNotStartedException)
-                    {
-                        _console.ShowText(ex.Message);
-                    }
+                {
+                    _console.ShowText(ex.Message);
                 }
 
                 _currentCommand?.Execute();

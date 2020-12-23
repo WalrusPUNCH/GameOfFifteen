@@ -56,11 +56,17 @@ namespace GameOfFifteen.Game.Tests
 
         private GameSettings _defaultGameSettings;
         private GameSettings _testGameSettings;
+        private Mock<IPlayfield> _playfieldStub;
+        private GameMemento _testMemento;
+        private IGame _testedGame;
         [SetUp]
         public void Setup()
         {
             _defaultGameSettings = new GameSettings(3, Level.Easy, FrameType.Normal, false);
             _testGameSettings = new GameSettings(5, Level.Hard, FrameType.Boarded, true);
+            _playfieldStub = new Mock<IPlayfield>();
+            _testMemento = new GameMemento(_testGameSettings, 15, _playfieldStub.Object);
+            _testedGame = new Impl.Game(_defaultGameSettings);
         }
 
 
@@ -68,39 +74,30 @@ namespace GameOfFifteen.Game.Tests
         public void RestoreMovesFromMemento_15_MovesInGameRestoredFromMemento()
         {
             // arrange
-            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
-            GameMemento testMemento = new GameMemento(_testGameSettings, 15, playfieldStub.Object);
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-
             // act
-            testedGame.RestoreFromMemento(testMemento);
+            _testedGame.RestoreFromMemento(_testMemento);
 
             // assert
-            Assert.That(testedGame.Moves, Is.EqualTo(testMemento.Moves));
+            Assert.That(_testedGame.Moves, Is.EqualTo(_testMemento.Moves));
         }
 
         [Test]
         public void RestoreSettingsFromMemento_TestSettings_SettingsInGameRestoredFromMemento()
         {
             // arrange
-            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
-            GameMemento testMemento = new GameMemento(_testGameSettings, 15, playfieldStub.Object);
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-
             // act
-            testedGame.RestoreFromMemento(testMemento);
+            _testedGame.RestoreFromMemento(_testMemento);
 
             // assert
-            Assert.That(testedGame.Settings, Is.EqualTo(testMemento.Settings));
+            Assert.That(_testedGame.Settings, Is.EqualTo(_testMemento.Settings));
         }
 
         [TestCaseSource("UnsolvedBoardsTestCases")]
         public void RestorePlayfieldFromMemento_TestPlayfield_PlayfieldInGameRestoredFromMemento(Frame[,] randomBoard)
         {
             // arrange
-            Mock<IPlayfield> playfieldStub = new Mock<IPlayfield>();
-            playfieldStub.SetupGet(x => x.Board).Returns(randomBoard);
-            GameMemento mementoStub = new GameMemento(_defaultGameSettings, 15, playfieldStub.Object);
+            _playfieldStub.SetupGet(x => x.Board).Returns(randomBoard);
+            GameMemento mementoStub = new GameMemento(_defaultGameSettings, 15, _playfieldStub.Object);
 
             IGame testedGame = new Impl.Game(_defaultGameSettings);
 
@@ -115,15 +112,14 @@ namespace GameOfFifteen.Game.Tests
         public void IncrementMovesNumber_NumberBeforeIncrementation_ReturnsNumberBeforeIncrementationPlusOne()
         {
             // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-            int movesBefore = testedGame.Moves;
+            int movesBefore = _testedGame.Moves;
             int expectedValue = movesBefore + 1;
 
             // act
-            testedGame.IncrementMovesNumber();
+            _testedGame.IncrementMovesNumber();
 
             // assert
-            Assert.AreEqual(expectedValue, testedGame.Moves);
+            Assert.AreEqual(expectedValue, _testedGame.Moves);
         }
 
 
@@ -131,10 +127,8 @@ namespace GameOfFifteen.Game.Tests
         public void IsSolved_SolvedPlayfield_ReturnsTrue()
         {
             // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-
             // act
-            bool isTestPlayfieldSolved = testedGame.IsSolved();
+            bool isTestPlayfieldSolved = _testedGame.IsSolved();
 
             // assert
             Assert.IsTrue(isTestPlayfieldSolved);
@@ -144,12 +138,11 @@ namespace GameOfFifteen.Game.Tests
         public void IsSolved_SolvedPlayfield_GameWonEventInvoked()
         {
             // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
             bool wasEventInvoked = false;
-            testedGame.NotifyOnGameWon += () => wasEventInvoked = true;
+            _testedGame.NotifyOnGameWon += () => wasEventInvoked = true;
 
             // act
-            bool isTestPlayfieldSolved = testedGame.IsSolved();
+            bool isTestPlayfieldSolved = _testedGame.IsSolved();
 
             // assert
             Assert.IsTrue(wasEventInvoked);
@@ -159,11 +152,10 @@ namespace GameOfFifteen.Game.Tests
         public void IsSolved_UnsolvedPlayfield_ReturnsFalse()
         {
             // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-            Manipulator.GetInstance().MakeMove(testedGame.Playfield, Direction.Up, false);
+            Manipulator.GetInstance().MakeMove(_testedGame.Playfield, Direction.Up, false);
 
             // act
-            bool isTestPlayfieldSolved = testedGame.IsSolved();
+            bool isTestPlayfieldSolved = _testedGame.IsSolved();
 
             // assert
             Assert.IsFalse(isTestPlayfieldSolved);
@@ -173,13 +165,12 @@ namespace GameOfFifteen.Game.Tests
         public void IsSolved_UnolvedPlayfield_NoEventInvokation()
         {
             // arrange
-            IGame testedGame = new Impl.Game(_defaultGameSettings);
-            Manipulator.GetInstance().MakeMove(testedGame.Playfield, Direction.Up, false);
+            Manipulator.GetInstance().MakeMove(_testedGame.Playfield, Direction.Up, false);
             bool wasEventCalled = false;
-            testedGame.NotifyOnGameWon += () => wasEventCalled = true;
+            _testedGame.NotifyOnGameWon += () => wasEventCalled = true;
 
             // act
-            bool isTestPlayfieldSolved = testedGame.IsSolved();
+            bool isTestPlayfieldSolved = _testedGame.IsSolved();
 
             // assert
             Assert.IsFalse(wasEventCalled);

@@ -53,23 +53,6 @@ namespace GameOfFifteen.Game.Tests
             _manipulatorMock.Verify(m => m.ShuffleBoard(newCreatedGame.Playfield, _defaultSettings.Level), Times.Once());
             Assert.IsTrue(wasEventCalled);
         }
-        /*
-        [Test]
-        public void CreateGame_InvalidSettings_NoGameCreatedEventInvokation()
-        {
-            // arrange
-            GameCreator testGameCreator = new GameCreator();
-            GameSettings testNullSettings = null;
-            bool wasEventCalled = false;
-            testGameCreator.NotifyOnGameCreated += (newGame) => wasEventCalled = true;
-
-            // act           
-            TestDelegate testDelegate = () => testGameCreator.CreateGame(testNullSettings, _manipulatorMock.Object);
-            
-            // assert
-            Assert.Throws<ArgumentNullException>(testDelegate);
-            Assert.IsFalse(wasEventCalled);
-        }*/
 
     }
 }
