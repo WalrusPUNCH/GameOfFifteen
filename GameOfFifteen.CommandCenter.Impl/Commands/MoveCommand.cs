@@ -24,11 +24,12 @@ namespace GameOfFifteen.CommandCenter.Impl.Commands
 
         public void Execute()
         {
+            _savedMemento = _game.SaveGameMemento();
+
             bool isMoveValid =
                 _manipulator.MakeMove(_game.Playfield, _direction, _game.Settings.IsRandomActionsEnabled);
             if (isMoveValid)
             {
-                _savedMemento = _game.SaveGameMemento();
                 _history.SaveCommand(this);
                 _game.IncrementMovesNumber();
                 _game.IsSolved();

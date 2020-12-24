@@ -10,11 +10,11 @@ namespace GameOfFifteen.Game.Impl
         public event IRedrawNotificator.RedrawField NotifyOnPlayfieldChange;
 
         private static Manipulator _instance;
-        private Manipulator()
+        public Manipulator()
         {
             
         }
-
+        
         public static Manipulator GetInstance()
         {
             if (_instance == null)
@@ -22,6 +22,7 @@ namespace GameOfFifteen.Game.Impl
             return _instance;
         }
         
+
         public void ShuffleBoard(IPlayfield playfield, Level level)
         {
             switch (level)
